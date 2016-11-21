@@ -233,9 +233,9 @@ __posh_git_echo ()
     local step=''
     local total=''
     if [ -d "$g/rebase-merge" ]; then
-        b=$(cat "$g/rebase-merge/head-name" 2>/dev/null)
-        step=$(cat "$g/rebase-merge/msgnum" 2>/dev/null)
-        total=$(cat "$g/rebase-merge/end" 2>/dev/null)
+        b=$(< "$g/rebase-merge/head-name" 2>/dev/null)
+        step=$(< "$g/rebase-merge/msgnum" 2>/dev/null)
+        total=$(< "$g/rebase-merge/end" 2>/dev/null)
         if [ -f "$g/rebase-merge/interactive" ]; then
             rebase='|REBASE-i'
         else
@@ -243,8 +243,8 @@ __posh_git_echo ()
         fi
     else
         if [ -d "$g/rebase-apply" ]; then
-            step=$(cat "$g/rebase-apply/next")
-            total=$(cat "$g/rebase-apply/last")
+            step=$(< "$g/rebase-apply/next")
+            total=$(< "$g/rebase-apply/last")
             if [ -f "$g/rebase-apply/rebasing" ]; then
                 rebase='|REBASE'
             elif [ -f "$g/rebase-apply/applying" ]; then
