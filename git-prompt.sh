@@ -180,19 +180,19 @@ __posh_git_echo () {
     local RebaseForegroundColor=$(__posh_color '\e[0m') # reset
     local RebaseBackgroundColor=
 
-    local EnableFileStatus=`git config --bool bash.enableFileStatus`
+    local EnableFileStatus=$(git config --bool bash.enableFileStatus)
     case "$EnableFileStatus" in
         true)  EnableFileStatus=true ;;
         false) EnableFileStatus=false ;;
         *)     EnableFileStatus=true ;;
     esac
-    local ShowStatusWhenZero=`git config --bool bash.showStatusWhenZero`
+    local ShowStatusWhenZero=$(git config --bool bash.showStatusWhenZero)
     case "$ShowStatusWhenZero" in
         true)  ShowStatusWhenZero=true ;;
         false) ShowStatusWhenZero=false ;;
         *)     ShowStatusWhenZero=false ;;
     esac
-    local ShowStashState=`git config --bool bash.showStashState`
+    local ShowStashState=$(git config --bool bash.showStashState)
     case "$ShowStashState" in
         true)  ShowStashState=true ;;
         false) ShowStashState=false ;;
@@ -353,7 +353,7 @@ __posh_git_echo () {
                     (( filesUnmerged++ ))
                     ;;
             esac
-        done <<< "`git status --porcelain 2>/dev/null`"
+        done <<< "$(git status --porcelain 2>/dev/null)"
     fi
 
     local gitstring=
@@ -496,7 +496,7 @@ __posh_git_ps1_upstream_divergence ()
     __POSH_BRANCH_BEHIND_BY=0
     # Find how many commits we are ahead/behind our upstream
     if [ -z "$legacy" ]; then
-        IFS=$' \t\n' read -r __POSH_BRANCH_BEHIND_BY __POSH_BRANCH_AHEAD_BY <<< "`git rev-list --count --left-right $upstream...HEAD 2>/dev/null`"
+        IFS=$' \t\n' read -r __POSH_BRANCH_BEHIND_BY __POSH_BRANCH_AHEAD_BY <<< "$(git rev-list --count --left-right $upstream...HEAD 2>/dev/null)"
     else
         # produce equivalent output to --count for older versions of git
         while IFS=$' \t\n' read -r commit; do
@@ -504,7 +504,7 @@ __posh_git_ps1_upstream_divergence ()
             "<*") (( __POSH_BRANCH_BEHIND_BY++ )) ;;
             ">*") (( __POSH_BRANCH_AHEAD_BY++ ))  ;;
             esac
-        done <<< "`git rev-list --left-right $upstream...HEAD 2>/dev/null`"
+        done <<< "$(git rev-list --left-right $upstream...HEAD 2>/dev/null)"
     fi
     : ${__POSH_BRANCH_AHEAD_BY:=0}
     : ${__POSH_BRANCH_BEHIND_BY:=0}
