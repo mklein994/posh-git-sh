@@ -1,3 +1,4 @@
+# vim:ft=sh
 # bash/zsh git prompt support
 #
 # Copyright (C) 2016 David Xu
