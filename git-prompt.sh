@@ -126,12 +126,12 @@ __posh_git_ps1 ()
 __posh_color ()
 {
     if [ -n "$ZSH_VERSION" ]; then
-        echo %{$1%}
+        echo "%{$1%}"
     elif [ -n "$BASH_VERSION" ]; then
-        echo \\[$1\\]
+        echo "\[$1\]"
     else
         # assume Bash anyway
-        echo \\[$1\\]
+        echo "\[$1\]"
     fi
 }
 
@@ -316,7 +316,7 @@ __posh_git_echo ()
         local filesModified=0
         local filesDeleted=0
         local filesUnmerged=0
-        while IFS="\n" read -r tag rest
+        while IFS=$'\n' read -r tag rest
         do
             case "${tag:0:1}" in
                 A )
