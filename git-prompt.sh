@@ -138,6 +138,12 @@ __posh_color ()
 # Echoes the git status string.
 __posh_git_echo ()
 {
+    # FIXME does not respect bash.enableGitStatus.
+    local g=$(__posh_gitdir)
+    if [ -z "$g" ]; then
+        return;
+    fi
+
     if [ "$(git config --bool bash.enableGitStatus)" = 'false' ]; then
         return;
     fi
